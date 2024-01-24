@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:form/signup.dart';
 
@@ -25,30 +26,38 @@ class _loginState extends State<login> {
         child: Form(
           child: Column(
             children: [
+              SizedBox(
+                height: 30,
+              ),
               CustomFormField(
                   label1: 'Enter Username',
                   hintText1: 'Enter Username',
                   Icon1: Icons.verified_user,
                   controller1: username),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               CustomFormField(
                   label1: 'Enter Password',
                   hintText1: 'Enter Password',
                   Icon1: Icons.password,
-                  controller1: username),
+                  controller1: password),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               FractionallySizedBox(
                 widthFactor: 1,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      String uname = username.text;
+                      String pass = password.text;
+
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                         foregroundColor: Colors.white,
-                        padding: EdgeInsets.all(15),
+                        textStyle: TextStyle(fontSize: 20),
+                        padding: EdgeInsets.all(17),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20))),
                     child: Text('Login')),

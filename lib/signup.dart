@@ -64,51 +64,58 @@ class _customwidgetState extends State<customwidget> {
                 Icon1: Icons.ac_unit_sharp,
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
-              OverflowBar(
-                  alignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    FractionallySizedBox(
-                      widthFactor: 0.5,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            String uname = username.text;
-                            String pass = password.text;
-                            Map<String, String> userdata = {
-                              "username": uname,
-                              "password": pass
-                            };
-                            FirebaseFirestore.instance
-                                .collection('users')
-                                .add(userdata);
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                              foregroundColor: Colors.white,
-                              padding: EdgeInsets.all(15),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20))),
-                          child: Text('Signup')),
-                    ),
-                    FractionallySizedBox(
-                      widthFactor: 0.5,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => login()));
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Colors.blue,
-                              padding: EdgeInsets.all(15),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20))),
-                          child: Text('Login')),
-                    ),
-                  ])
+              FractionallySizedBox(
+                widthFactor: 1,
+                child: ElevatedButton(
+                    onPressed: () {
+                      String uname = username.text;
+                      String pass = password.text;
+                      Map<String, String> userdata = {
+                        "username": uname,
+                        "password": pass
+                      };
+                      FirebaseFirestore.instance
+                          .collection('users')
+                          .add(userdata);
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
+                        textStyle: TextStyle(fontSize: 20),
+                        padding: EdgeInsets.all(17),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20))),
+                    child: Text('Signup')),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                  child: Text(
+                'OR',
+                style: TextStyle(fontSize: 15, color: Colors.blue),
+              )),
+              SizedBox(
+                height: 10,
+              ),
+              FractionallySizedBox(
+                widthFactor: 1,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => login()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white70,
+                        foregroundColor: Colors.blue,
+                        textStyle: TextStyle(fontSize: 20),
+                        padding: EdgeInsets.all(17),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20))),
+                    child: Text('Login')),
+              )
             ],
           ),
         ),
@@ -134,20 +141,17 @@ class CustomFormField extends StatelessWidget {
     return TextFormField(
       controller: controller1,
       decoration: InputDecoration(
-          label: Text('$label1'),
-          labelStyle: TextStyle(
-            color: Colors.blueGrey
-          ),
-          hintText: '$hintText1',
-          prefixIcon: Icon(Icon1,color: Colors.blue,),
-
-          enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blue,width: 1)
-          ),
-        focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue,width: 1)
+        label: Text('$label1'),
+        labelStyle: TextStyle(color: Colors.blueGrey),
+        hintText: '$hintText1',
+        prefixIcon: Icon(
+          Icon1,
+          color: Colors.blue,
         ),
-
+        enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 1)),
+        focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 1)),
       ),
     );
   }
