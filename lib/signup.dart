@@ -12,8 +12,8 @@ class customwidget extends StatefulWidget {
 }
 
 class _customwidgetState extends State<customwidget> {
-  final p_name = TextEditingController();
-  final p_price = TextEditingController();
+  final username = TextEditingController();
+  final password = TextEditingController();
   File? p_image;
   @override
   Widget build(BuildContext context) {
@@ -49,18 +49,18 @@ class _customwidgetState extends State<customwidget> {
                 height: 20,
               ),
               CustomFormField(
-                controller1: p_name,
-                label1: 'Enter Name',
-                hintText1: 'Enetr Product Name',
+                controller1: username,
+                label1: 'UserName',
+                hintText1: 'Enetr UserName',
                 Icon1: Icons.abc_outlined,
               ),
               SizedBox(
                 height: 20,
               ),
               CustomFormField(
-                controller1: p_price,
-                label1: 'Enter Price',
-                hintText1: 'Enetr Product Price',
+                controller1: password,
+                label1: 'Enter password',
+                hintText1: 'Enetr password',
                 Icon1: Icons.ac_unit_sharp,
               ),
               SizedBox(
@@ -73,15 +73,15 @@ class _customwidgetState extends State<customwidget> {
                       widthFactor: 0.5,
                       child: ElevatedButton(
                           onPressed: () {
-                            String proname = p_name.text;
-                            String proprice = p_price.text;
-                            Map<String, String> productdata = {
-                              "pname": proname,
-                              "pprice": proprice
+                            String uname = username.text;
+                            String pass = password.text;
+                            Map<String, String> userdata = {
+                              "username": uname,
+                              "password": pass
                             };
                             FirebaseFirestore.instance
-                                .collection('products')
-                                .add(productdata);
+                                .collection('users')
+                                .add(userdata);
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
