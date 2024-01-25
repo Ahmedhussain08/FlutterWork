@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form/signup.dart';
 
@@ -48,9 +49,10 @@ class _loginState extends State<login> {
               FractionallySizedBox(
                 widthFactor: 1,
                 child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       String uname = username.text;
                       String pass = password.text;
+
 
                     },
                     style: ElevatedButton.styleFrom(
@@ -60,7 +62,7 @@ class _loginState extends State<login> {
                         padding: EdgeInsets.all(17),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20))),
-                    child: Text('Login')),
+                    child: Text('Login'), ),
               )
             ],
           ),
