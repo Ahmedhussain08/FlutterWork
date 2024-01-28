@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:form/loader1.dart';
 import 'package:form/loader2.dart';
 import 'package:form/loader3.dart';
+import 'package:form/login.dart';
 import 'firebase_options.dart';
 
 import 'signup.dart';
@@ -24,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return  const MaterialApp(
-      home: loader1(),
+      home: login(),
       debugShowCheckedModeBanner: false,
     );
   }

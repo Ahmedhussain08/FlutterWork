@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form/signup.dart';
 
+import 'dashboard.dart';
+
 class login extends StatefulWidget {
   const login({super.key});
 
@@ -31,6 +33,7 @@ class _loginState extends State<login> {
                 height: 30,
               ),
               CustomFormField(
+
                   label1: 'Enter Username',
                   hintText1: 'Enter Username',
                   Icon1: Icons.verified_user,
@@ -49,11 +52,49 @@ class _loginState extends State<login> {
               FractionallySizedBox(
                 widthFactor: 1,
                 child: ElevatedButton(
-                    onPressed: () async {
+                    onPressed: ()  {
                       String uname = username.text;
                       String pass = password.text;
+                      username.clear();
+                      password.clear();
+                      if(uname=='admin'&&pass=='admin'){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>dashboard()));
+                      }
+                      else{
+                        void showErrorDialog(BuildContext context) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Error!',style: TextStyle(color: Colors.red.shade900),),
+                                content: Text('Invalid Username or Password'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    style: ButtonStyle(
+                                      foregroundColor: MaterialStateProperty.all(Colors.grey),
+                                    ),
+                                    child: Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    style: ButtonStyle(
+                                      foregroundColor: MaterialStateProperty.all(Colors.blue),
+                                    ),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                        showErrorDialog(context);
 
-
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
