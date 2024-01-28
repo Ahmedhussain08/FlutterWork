@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:form/login.dart';
 import 'package:image_picker/image_picker.dart';
 
-class customwidget extends StatefulWidget {
-  const customwidget({super.key});
+class signup extends StatefulWidget {
+  const signup({super.key});
   @override
-  State<customwidget> createState() => _customwidgetState();
+  State<signup> createState() => _signupState();
 }
 
-class _customwidgetState extends State<customwidget> {
+class _signupState extends State<signup> {
   final username = TextEditingController();
   final password = TextEditingController();
   File? p_image;
@@ -41,7 +41,8 @@ class _customwidgetState extends State<customwidget> {
                   }
                 },
                 child: CircleAvatar(
-                  radius: 100,
+                  minRadius: 60,
+                  maxRadius: 80,
                   backgroundImage: p_image != null ? FileImage(p_image!) : null,
                 ),
               ),
@@ -90,7 +91,7 @@ class _customwidgetState extends State<customwidget> {
                     child: Text('Signup')),
               ),
               SizedBox(
-                height: 10,
+                height: 5,
               ),
               Center(
                   child: Text(
@@ -98,7 +99,7 @@ class _customwidgetState extends State<customwidget> {
                 style: TextStyle(fontSize: 15, color: Colors.blue),
               )),
               SizedBox(
-                height: 10,
+                height: 5,
               ),
               FractionallySizedBox(
                 widthFactor: 1,

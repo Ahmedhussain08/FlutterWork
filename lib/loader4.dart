@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'loader4.dart';
+import 'signup.dart';
 
+class loader4 extends StatefulWidget {
+  const loader4({super.key});
 
-class loader3 extends StatelessWidget {
-  final PageController pageController;
+  @override
+  State<loader4> createState() => _loader4State();
+}
 
-  loader3({required this.pageController});
+class _loader4State extends State<loader4> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,20 +26,22 @@ class loader3 extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all( )
                     ),
-                    child: Center(child: Text('2/3',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
+                    child: Center(child: Text('3/3',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
                   ),
                   GestureDetector(
                     onTap: (){
-                      pageController.nextPage(
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.easeIn
-                      );
+
                     },
-                    child: Container(
-                      width: 40,
-                      height: 30,
-                      decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
-                      child: Center(child: Text('Next',style: TextStyle(color: Colors.blue),)),
+                    child: GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>signup()));
+                      },
+                      child: Container(
+                        width: 40,
+                        height: 30,
+                        decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
+                        child: Center(child: Text('Skip',style: TextStyle(color: Colors.blue),)),
+                      ),
                     ),
                   ),
                 ],
@@ -53,7 +59,7 @@ class loader3 extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("images/img2.jpg"),
+                        image: AssetImage("images/img3.jpg"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -63,5 +69,6 @@ class loader3 extends StatelessWidget {
             )
           ],
         ));
+
   }
 }
