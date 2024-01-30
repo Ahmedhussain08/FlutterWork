@@ -5,6 +5,7 @@ import 'package:form/loader1.dart';
 import 'package:form/loader2.dart';
 import 'package:form/loader3.dart';
 import 'package:form/login.dart';
+import 'package:form/splash_screen.dart';
 import 'firebase_options.dart';
 
 import 'signup.dart';
@@ -26,7 +27,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return  const MaterialApp(
-      home: dashboard(),
+      home: splash_screen(),
       debugShowCheckedModeBanner: false,
     );
   }
