@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:form/login.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class signup extends StatefulWidget {
   const signup({super.key});
@@ -15,6 +17,38 @@ class _signupState extends State<signup> {
   final username = TextEditingController();
   final password = TextEditingController();
   File? p_image;
+  bool isloading = false;
+  void userDataWithImage() async {
+    setState(() {
+      isloading = ! isloading;
+    });
+    String userID = Uuid().v1();
+    UploadTask uploadTask = FirebaseStorage.instance
+        .ref()
+        .child("userimages")
+        .child(userID)
+        .putFile(p_image!);
+    TaskSnapshot taskSnapshot = await uploadTask;
+    String imglink = await taskSnapshot.ref.getDownloadURL();
+    userData(userID: userID,imgUrl: imglink);
+    setState(() {
+      isloading = ! isloading;
+    });
+
+  }
+
+  void userData({String? imgUrl, String? userID}) async {
+    String uname = username.text;
+    String pass = password.text;
+    Map<String, dynamic> uAdd = {
+      "user-ID": userID,
+      "username": uname,
+      "password": pass,
+      "user-image": imgUrl
+    };
+    await FirebaseFirestore.instance.collection('users').doc(userID).set(uAdd);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,17 +103,9 @@ class _signupState extends State<signup> {
               ),
               FractionallySizedBox(
                 widthFactor: 1,
-                child: ElevatedButton(
+                child: isloading==false? ElevatedButton(
                     onPressed: () {
-                      String uname = username.text;
-                      String pass = password.text;
-                      Map<String, String> userdata = {
-                        "username": uname,
-                        "password": pass
-                      };
-                      FirebaseFirestore.instance
-                          .collection('users')
-                          .add(userdata);
+                      userDataWithImage();
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
@@ -88,7 +114,7 @@ class _signupState extends State<signup> {
                         padding: EdgeInsets.all(17),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20))),
-                    child: Text('Signup')),
+                    child: Text('Signup')) : CircularProgressIndicator()
               ),
               SizedBox(
                 height: 5,
@@ -140,7 +166,6 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
       controller: controller1,
       decoration: InputDecoration(
         label: Text('$label1'),
