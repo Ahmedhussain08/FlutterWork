@@ -30,18 +30,13 @@ class _loader4State extends State<loader4> {
                   ),
                   GestureDetector(
                     onTap: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>signup()));
                     },
-                    child: GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>signup()));
-                      },
-                      child: Container(
-                        width: 40,
-                        height: 30,
-                        decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
-                        child: Center(child: Text('Skip',style: TextStyle(color: Colors.blue),)),
-                      ),
+                    child: Container(
+                      width: 40,
+                      height: 30,
+                      decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
+                      child: Center(child: Text('Skip',style: TextStyle(color: Colors.blue),)),
                     ),
                   ),
                 ],

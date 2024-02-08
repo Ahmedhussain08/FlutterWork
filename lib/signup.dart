@@ -34,7 +34,6 @@ class _signupState extends State<signup> {
     setState(() {
       isloading = ! isloading;
     });
-
   }
 
   void userData({String? imgUrl, String? userID}) async {
