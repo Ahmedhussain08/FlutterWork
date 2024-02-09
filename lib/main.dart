@@ -4,6 +4,7 @@ import 'package:form/listtile.dart';
 import 'package:form/listviewbuilder.dart';
 
 import 'package:form/splash_screen.dart';
+import 'StreamBuilder.dart';
 import 'firebase_options.dart';
 
 
@@ -24,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return  const MaterialApp(
-      home: listtile(),
+      home: FetchData(),
       debugShowCheckedModeBanner: false,
     );
   }
