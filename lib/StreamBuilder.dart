@@ -59,12 +59,15 @@ class _FetchDataState extends State<FetchData> {
                   List<String> img = documents
                       .map((doc) => doc['user-image'].toString())
                       .toList();
-                  documents.forEach((doc) {
-                    print('Document Data: ${doc.data()}');
-                  });
+                  // documents.forEach((doc) {
+                  //   print('Document Data: ${doc.data()}');
+                  // });
 
-                  return ListView.builder(
+                  return ListView.separated(
                     itemCount: names.length,
+                    separatorBuilder: (context, index) {
+                      return Divider();
+                    },
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Text(names[index],style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold),),
@@ -73,6 +76,7 @@ class _FetchDataState extends State<FetchData> {
                           radius: 40,
                           backgroundImage: NetworkImage(img[index]),
                         ),
+
                       );
                     },
                   );
