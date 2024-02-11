@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form/home.dart';
 import 'signup.dart';
 
 class loader4 extends StatefulWidget {
@@ -30,7 +31,7 @@ class _loader4State extends State<loader4> {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>signup()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>homepage()));
                     },
                     child: Container(
                       width: 40,
