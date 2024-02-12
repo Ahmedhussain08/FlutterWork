@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form/StreamBuilder.dart';
+import 'package:form/dashboard.dart';
 import 'package:form/listtile.dart';
 import 'package:form/listviewbuilder.dart';
 import 'package:form/signup.dart';
@@ -43,7 +44,7 @@ class _homepageState extends State<homepage> {
                   ),
                 )),
             ListTile(
-              leading: Icon(Icons.add_circle),
+              leading: Icon(Icons.add_task),
               title: Text('Add new User'),
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>signup()));
@@ -51,10 +52,33 @@ class _homepageState extends State<homepage> {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.add_circle),
+              leading: Icon(Icons.info_outline),
               title: Text('See Current Users'),
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>FetchData()));
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.list),
+              title: Text('ListTile Page'),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>listtile()));
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.build),
+              title: Text('ListviewBuilder Page'),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>listview()));
+              },
+            ),
+            Divider(), ListTile(
+              leading: Icon(Icons.dashboard),
+              title: Text('Dashboard Page'),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>dashboard()));
               },
             ),
             Divider(),
