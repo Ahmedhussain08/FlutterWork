@@ -50,6 +50,9 @@ class _FetchDataState extends State<FetchData> {
                   // Assuming your data structure has a 'name' field in each document
                   // Replace 'name' with the actual field you want to display
                   List<DocumentSnapshot> documents = snapshot.data!.docs;
+                  List<String> uid = documents
+                      .map((doc) => doc['user-ID'].toString())
+                      .toList();
                   List<String> names = documents
                       .map((doc) => doc['username'].toString())
                       .toList();
@@ -59,10 +62,12 @@ class _FetchDataState extends State<FetchData> {
                   List<String> img = documents
                       .map((doc) => doc['user-image'].toString())
                       .toList();
+                  void deletedata(id){
+                    FirebaseFirestore.instance.collection('users').doc(id).delete();
+                  }
                   // documents.forEach((doc) {
                   //   print('Document Data: ${doc.data()}');
                   // });
-
                   return ListView.separated(
                     itemCount: names.length,
                     separatorBuilder: (context, index) {
@@ -76,7 +81,11 @@ class _FetchDataState extends State<FetchData> {
                           radius: 40,
                           backgroundImage: NetworkImage(img[index]),
                         ),
-
+                        trailing: InkWell(
+                            onTap: (){
+                              deletedata(uid[index]);
+                            },
+                            child: Icon(Icons.delete)),
                       );
                     },
                   );

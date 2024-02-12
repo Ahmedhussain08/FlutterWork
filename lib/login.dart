@@ -1,17 +1,16 @@
+import 'dart:js_util';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form/signup.dart';
-
 import 'dashboard.dart';
 
 class login extends StatefulWidget {
   const login({super.key});
-
   @override
   State<login> createState() => _loginState();
 }
-
 class _loginState extends State<login> {
   final username = TextEditingController();
   final password = TextEditingController();
@@ -57,8 +56,8 @@ class _loginState extends State<login> {
                       String pass = password.text;
                       username.clear();
                       password.clear();
-                      if(uname=='admin'&&pass=='admin'){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>dashboard()));
+                      if(uname != null && pass !=null){
+                        FirebaseAuth.instance.createUserWithEmailAndPassword(email: uname, password: pass);
                       }
                       else{
                         void showErrorDialog(BuildContext context) {
@@ -93,7 +92,6 @@ class _loginState extends State<login> {
                           );
                         }
                         showErrorDialog(context);
-
                       }
                     },
                     style: ElevatedButton.styleFrom(
