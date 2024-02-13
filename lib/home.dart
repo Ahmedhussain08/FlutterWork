@@ -3,6 +3,7 @@ import 'package:form/StreamBuilder.dart';
 import 'package:form/dashboard.dart';
 import 'package:form/listtile.dart';
 import 'package:form/listviewbuilder.dart';
+import 'package:form/login.dart';
 import 'package:form/signup.dart';
 
 class homepage extends StatefulWidget {
@@ -24,6 +25,11 @@ class _homepageState extends State<homepage> {
             style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 3),
           ),
           centerTitle: true,
+          actions: [
+            IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>login()));
+            }, icon: Icon(Icons.person_outline_sharp))
+          ],
         ),
         drawer: Drawer(
           child: ListView(padding: EdgeInsets.all(0),  children: [

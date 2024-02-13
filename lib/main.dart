@@ -4,6 +4,7 @@ import 'package:form/home.dart';
 import 'package:form/listtile.dart';
 import 'package:form/listviewbuilder.dart';
 import 'package:form/login.dart';
+import 'package:form/signup.dart';
 import 'package:form/splash_screen.dart';
 import 'StreamBuilder.dart';
 import 'firebase_options.dart';

@@ -1,10 +1,11 @@
-import 'dart:js_util';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form/signup.dart';
 import 'dashboard.dart';
+import 'package:achievement_view/achievement_view.dart';
+
 
 class login extends StatefulWidget {
   const login({super.key});
@@ -14,6 +15,15 @@ class login extends StatefulWidget {
 class _loginState extends State<login> {
   final username = TextEditingController();
   final password = TextEditingController();
+
+  void showAchievementView(BuildContext, context){
+    AchievementView(
+      title: "Congrats!",
+      subTitle: "You are LoggedIn successfully",
+      color: Colors.green
+    ).show(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +42,6 @@ class _loginState extends State<login> {
                 height: 30,
               ),
               CustomFormField(
-
                   label1: 'Enter Username',
                   hintText1: 'Enter Username',
                   Icon1: Icons.verified_user,
@@ -56,8 +65,9 @@ class _loginState extends State<login> {
                       String pass = password.text;
                       username.clear();
                       password.clear();
-                      if(uname != null && pass !=null){
+                      if(uname.isNotEmpty && pass.isNotEmpty){
                         FirebaseAuth.instance.createUserWithEmailAndPassword(email: uname, password: pass);
+                        showAchievementView(BuildContext, context);
                       }
                       else{
                         void showErrorDialog(BuildContext context) {

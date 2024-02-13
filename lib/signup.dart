@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:form/login.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:uuid/uuid.dart';
 
 class signup extends StatefulWidget {
@@ -14,13 +15,18 @@ class signup extends StatefulWidget {
 }
 
 class _signupState extends State<signup> {
+  final _formKey = GlobalKey<FormState>();
   final username = TextEditingController();
   final password = TextEditingController();
   File? p_image;
+
+  bool isImageSelected = false;
+
   bool isloading = false;
+
   void userDataWithImage() async {
     setState(() {
-      isloading = ! isloading;
+      isloading = !isloading;
     });
     String userID = Uuid().v1();
     UploadTask uploadTask = FirebaseStorage.instance
@@ -30,9 +36,9 @@ class _signupState extends State<signup> {
         .putFile(p_image!);
     TaskSnapshot taskSnapshot = await uploadTask;
     String imglink = await taskSnapshot.ref.getDownloadURL();
-    userData(userID: userID,imgUrl: imglink);
+    userData(userID: userID, imgUrl: imglink);
     setState(() {
-      isloading = ! isloading;
+      isloading = !isloading;
     });
   }
 
@@ -47,6 +53,29 @@ class _signupState extends State<signup> {
     };
     await FirebaseFirestore.instance.collection('users').doc(userID).set(uAdd);
   }
+  // void showErrorDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (BuildContext context) {
+  //       return SizedBox(
+  //         height: 50,
+  //         child: AlertDialog(
+  //
+  //
+  //           backgroundColor: Colors.transparent,
+  //           content: LoadingIndicator(
+  //             colors: [Colors.blue],
+  //               indicatorType: Indicator.pacman),
+  //           actions: [
+  //
+  //           ],
+  //         ),
+  //
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +89,7 @@ class _signupState extends State<signup> {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               GestureDetector(
@@ -70,10 +100,15 @@ class _signupState extends State<signup> {
                     File image1 = File(selectedImage.path);
                     setState(() {
                       p_image = image1;
+                      isImageSelected = true;
                     });
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Please Select An Image',style: TextStyle(color: Colors.red),)));
                   }
                 },
                 child: CircleAvatar(
+
                   minRadius: 60,
                   maxRadius: 80,
                   backgroundImage: p_image != null ? FileImage(p_image!) : null,
@@ -102,18 +137,34 @@ class _signupState extends State<signup> {
               ),
               FractionallySizedBox(
                 widthFactor: 1,
-                child: isloading==false? ElevatedButton(
-                    onPressed: () {
-                      userDataWithImage();
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white,
-                        textStyle: TextStyle(fontSize: 20),
-                        padding: EdgeInsets.all(17),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                    child: Text('Signup')) : CircularProgressIndicator()
+                child: isloading == false
+                    ? ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate() &&
+                              isImageSelected) {
+                            // Form is valid, proceed with signup logic
+                            userDataWithImage();
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            foregroundColor: Colors.white,
+                            textStyle: TextStyle(fontSize: 20),
+                            padding: EdgeInsets.all(17),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20))),
+                        child: Text('Signup'))
+                    : Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          height: 60, // Adjust the height as needed
+                          width: 60, // Adjust the width as needed
+                          child: LoadingIndicator(
+                            indicatorType: Indicator.ballBeat,
+                            colors: [Colors.blue],
+                          ),
+                        ),
+                      ),
               ),
               SizedBox(
                 height: 5,
@@ -179,6 +230,12 @@ class CustomFormField extends StatelessWidget {
         focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.blue, width: 1)),
       ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Value cannot be null or empty';
+        }
+        return null;
+      },
     );
   }
 }

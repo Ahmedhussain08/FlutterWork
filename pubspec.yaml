@@ -43,6 +43,8 @@ dependencies:
   firebase_storage:
   uuid:
   cloud_firestore:
+  loading_indicator: ^3.1.1
+  achievement_view: ^1.0.1
 
 dev_dependencies:
   flutter_test:

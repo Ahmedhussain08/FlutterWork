@@ -75,17 +75,17 @@ class _FetchDataState extends State<FetchData> {
                     },
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(names[index],style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold),),
-                        subtitle: Text(pass[index],style: TextStyle(fontSize: 20)),
+                        title: Text('Name : ${names[index]}',style: TextStyle(fontSize: 24,fontWeight: FontWeight.w700,letterSpacing: 2),),
+                        subtitle: Text('Password : ${pass[index]}',style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                         leading: CircleAvatar(
-                          radius: 40,
+                          radius: 30,
                           backgroundImage: NetworkImage(img[index]),
                         ),
                         trailing: InkWell(
                             onTap: (){
                               deletedata(uid[index]);
                             },
-                            child: Icon(Icons.delete)),
+                            child: Icon(Icons.delete,color: Colors.red,size: 40,)),
                       );
                     },
                   );
